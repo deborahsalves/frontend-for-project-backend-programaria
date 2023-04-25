@@ -9,10 +9,10 @@ import styles from '../styles/content.module.css'
 
 export function Content() {
   const [repositories, setRepositories] = useState([])
-  const [nome, setNome] = useState('')
-  const [minibio, setminibio] = useState('')
-  const [citacao, setCitacao] = useState('')
-  const [imagem, setImagem] = useState('')
+  const [name, setName] = useState('')
+  const [bio, setBio] = useState('')
+  const [quote, setQuote] = useState('')
+  const [img, setImg] = useState('')
   const [success, setSuccess] = useState(false)
   const baseURL = 'https://project-programaria-backend.onrender.com/women'
 
@@ -24,33 +24,33 @@ export function Content() {
     getData()
   }, [])
 
-  function handleInputValueNome(event) {
-    setNome(event.target.value)
+  function handleInputValueName(event) {
+    setName(event.target.value)
   }
 
-  function handleInputValueminibio(event) {
-    setminibio(event.target.value)
+  function handleInputValueBio(event) {
+    setBio(event.target.value)
   }
 
-  function handleInputValueImagem(event) {
-    setImagem(event.target.value)
+  function handleInputValueImg(event) {
+    setImg(event.target.value)
   }
 
-  function handleInputValueCitacao(event) {
-    setCitacao(event.target.value)
+  function handleInputValueQuote(event) {
+    setQuote(event.target.value)
   }
 
   function handleCreateMessage(event) {
     event.preventDefault()
 
-    console.log('mensagem enviada', nome, citacao, minibio, imagem)
+    console.log('mensagem enviada', name, quote, bio, img)
 
     async function sendData() {
       await Axios.post(baseURL, {
-        nome: nome,
-        citacao: citacao,
-        minibio: minibio,
-        imagem: imagem
+        name: name,
+        quote: quote,
+        bio: bio,
+        img: img
       })
       const response = await Axios.get(baseURL)
       setRepositories(response.data)
@@ -58,10 +58,10 @@ export function Content() {
     sendData()
 
     setSuccess(true)
-    setNome('')
-    setminibio('')
-    setImagem('')
-    setCitacao('')
+    setName('')
+    setBio('')
+    setImg('')
+    setQuote('')
   }
 
   return (
@@ -78,14 +78,14 @@ export function Content() {
               return(
                 <div key={repo._id} className={styles.cardRepo}>
                 <div className={styles.cardImgContainer}>
-                  <img className={styles.cardRepoImage} src={repo.imagem} />
+                  <img className={styles.cardRepoImage} src={repo.img} />
                 </div>
                 <details>
                   <summary className={styles.cardRepoSummary}>
-                    {repo.nome}
+                    {repo.name}
                   </summary>
-                  <p className={styles.cardRepoText}>{repo.minibio}</p>
-                  <q className={styles.cardRepoQuote}>{repo.citacao}</q>
+                  <p className={styles.cardRepoText}>{repo.bio}</p>
+                  <q className={styles.cardRepoQuote}>{repo.quote}</q>
                 </details>
               </div>
               )
@@ -97,27 +97,27 @@ export function Content() {
         <h2 className={styles.projectsTitle}>Cadastre uma rainha tech:</h2>
         <form  className={styles.form} onSubmit={handleCreateMessage}>
           <input 
-            onChange={handleInputValueNome} 
+            onChange={handleInputValueName} 
             placeholder="Digite o nome"
-            value={nome}
+            value={name}
             className={styles.formInput}
           />
           <textarea 
-            onChange={handleInputValueImagem} 
+            onChange={handleInputValueImg} 
             placeholder="Digite o link da imagem"
-            value={imagem}
+            value={img}
             className={styles.formTextArea}
           />
           <textarea 
-            onChange={handleInputValueminibio} 
+            onChange={handleInputValueBio} 
             placeholder="Digite a minibiografia"
-            value={minibio}
+            value={bio}
             className={styles.formTextArea}
           />
           <textarea 
-            onChange={handleInputValueCitacao} 
+            onChange={handleInputValueQuote} 
             placeholder="Digite a citação"
-            value={citacao}
+            value={quote}
             className={styles.formTextArea}
           />
           <button className={styles.formButton} type="submit">Enviar mensagem</button>
